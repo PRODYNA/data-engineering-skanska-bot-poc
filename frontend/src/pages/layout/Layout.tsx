@@ -33,6 +33,25 @@ const shareButtonStyles: ICommandBarStyles & IButtonStyles = {
     },
   };
 
+  const containerStyle = {
+    width: '120px', 
+    height: '32px',
+    border: '1px solid #ccc',
+    borderRadius: '4px',
+    backgroundColor: '#F0F5F9',
+    padding: '5px 12px',
+    marginRight: '20px',
+  };
+  
+  const selectStyle = {
+    width: '100%',
+    height: '100%',
+    border: 'none',
+    background: 'none',
+    color: '#333',
+    fontSize: '14px',
+  };
+
 const Layout = () => {
     const [isSharePanelOpen, setIsSharePanelOpen] = useState<boolean>(false);
     const [copyClicked, setCopyClicked] = useState<boolean>(false);
@@ -58,6 +77,14 @@ const Layout = () => {
         appStateContext?.dispatch({ type: 'TOGGLE_CHAT_HISTORY' })
     };
 
+    const handleProjectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedValue = event.target.value;
+        console.log(selectedValue);
+        if(appStateContext){
+            appStateContext.state.currentProject = selectedValue;
+        }
+      }
+
     useEffect(() => {
         if (copyClicked) {
             setCopyText("Copied URL");
@@ -82,6 +109,14 @@ const Layout = () => {
                             <h1 className={styles.headerTitle}>Azure AI</h1>
                         </Link>
                     </Stack>
+                        
+                    <Stack>
+                        <select onChange={handleProjectChange} style={containerStyle}>
+                            <option value="kent" style={selectStyle}>Kent</option>
+                            <option value="broadway" style={selectStyle}>Broadway</option>
+                        </select>
+                    </Stack>
+
                     <Stack horizontal tokens={{ childrenGap: 4 }}>
                             {(appStateContext?.state.isCosmosDBAvailable?.status !== CosmosDBStatus.NotConfigured) && 
                                 <HistoryButton onClick={handleHistoryClick} text={appStateContext?.state?.isChatHistoryOpen ? "Hide chat history" : "Show chat history"}/>    

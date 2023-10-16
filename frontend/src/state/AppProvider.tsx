@@ -10,6 +10,7 @@ export interface AppState {
     chatHistory: Conversation[] | null;
     filteredChatHistory: Conversation[] | null;
     currentChat: Conversation | null;
+    currentProject: string | null;
 }
 
 export type Action =
@@ -34,7 +35,8 @@ const initialState: AppState = {
     isCosmosDBAvailable: {
         cosmosDB: false,
         status: CosmosDBStatus.NotConfigured,
-    }
+    }, 
+    currentProject: 'kent'
 };
 
 export const AppStateContext = createContext<{

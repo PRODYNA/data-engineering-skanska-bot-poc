@@ -60,6 +60,7 @@ export type ChatResponse = {
 
 export type ConversationRequest = {
     messages: ChatMessage[];
+    project: string;
 };
 
 export type UserInfo = {

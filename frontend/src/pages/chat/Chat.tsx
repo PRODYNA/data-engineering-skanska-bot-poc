@@ -133,8 +133,8 @@ const Chat = () => {
         setMessages(conversation.messages)
         
         const request: ConversationRequest = {
-            messages: [...conversation.messages.filter((answer) => answer.role !== "error")]
-            // messages: [...conversation.messages.filter((answer) => answer.role === "error")]
+            messages: [...conversation.messages.filter((answer) => answer.role !== "error")],
+            project: appStateContext?.state.currentProject == undefined ? "" : appStateContext?.state.currentProject
         };
 
         let result = {} as ChatResponse;
@@ -233,12 +233,14 @@ const Chat = () => {
             }else{
                 conversation.messages.push(userMessage);
                 request = {
-                    messages: [...conversation.messages.filter((answer) => answer.role !== "error")]
+                    messages: [...conversation.messages.filter((answer) => answer.role !== "error")],
+                    project: appStateContext?.state.currentProject == undefined ? "" : appStateContext?.state.currentProject
                 };
             }
         }else{
             request = {
-                messages: [userMessage].filter((answer) => answer.role !== "error")
+                messages: [userMessage].filter((answer) => answer.role !== "error"),
+                project: appStateContext?.state.currentProject == undefined ? "" : appStateContext?.state.currentProject
             };
             setMessages(request.messages)
         }

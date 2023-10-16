@@ -145,6 +145,7 @@ def generateFilterString(userToken):
 
 def prepare_body_headers_with_data(request):
     request_messages = request.json["messages"]
+    request_project = request.json["project"]
 
     # Set query type
     query_type = "simple"
@@ -159,6 +160,9 @@ def prepare_body_headers_with_data(request):
     if AZURE_SEARCH_PERMITTED_GROUPS_COLUMN:
         userToken = request.headers.get('X-MS-TOKEN-AAD-ACCESS-TOKEN', "")
         filter = generateFilterString(userToken)
+
+    filter = addProjectToFilter(filter, request_project)
+    logging.error(filter)
 
     body = {
         "messages": request_messages,
@@ -195,6 +199,7 @@ def prepare_body_headers_with_data(request):
         ]
     }
 
+
     headers = {
         'Content-Type': 'application/json',
         'api-key': AZURE_OPENAI_KEY,
@@ -203,6 +208,16 @@ def prepare_body_headers_with_data(request):
 
     return body, headers
 
+def addProjectToFilter(filter, project):
+    if filter is None:
+        filter = ""
+
+    if project: # not null, not empty
+        if filter:
+            filter += "&"
+        filter += f"project_name eq '{project}'"
+
+    return filter
 
 def stream_with_data(body, headers, endpoint, history_metadata={}):
     s = requests.Session()
