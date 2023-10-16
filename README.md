@@ -1,3 +1,12 @@
+# TLDR run locally
+1. copy .env.sample to .env and replace openapi key and search key placeholders
+2. Create venv-environment by running: ./scripts/loadenv.sh or ./scripts/loadenv.ps1
+3. Build frontend in ./frontend with "npm run watch". This will build the frontend and put the packages in ./static whenever the source changes.
+4. Start flask app that serves the frontend:
+    1. Activate python venv with "./.venv/bin/activate" or "./.venv/Scripts/Activate.ps1"
+    2. Run the flask app: python -m flask run --port=5000 --host=127.0.0.1 --reload --debug
+5. Go to localhost:5000 
+
 # [Preview] Sample Chat App with AOAI
 
 This repo contains sample code for a simple chat webapp that integrates with Azure OpenAI. Note: some portions of the app use preview APIs.
