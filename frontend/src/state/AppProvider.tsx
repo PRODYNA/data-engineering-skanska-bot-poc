@@ -36,7 +36,7 @@ const initialState: AppState = {
         cosmosDB: false,
         status: CosmosDBStatus.NotConfigured,
     }, 
-    currentProject: 'kent'
+    currentProject: 'Kent'
 };
 
 export const AppStateContext = createContext<{
