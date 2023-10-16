@@ -214,7 +214,7 @@ def addProjectToFilter(filter, project):
 
     if project: # not null, not empty
         if filter:
-            filter += "&"
+            filter += " and "
         filter += f"project_name eq '{project}'"
 
     return filter

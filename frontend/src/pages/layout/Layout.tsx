@@ -112,8 +112,8 @@ const Layout = () => {
                         
                     <Stack>
                         <select onChange={handleProjectChange} style={containerStyle}>
-                            <option value="kent" style={selectStyle}>Kent</option>
-                            <option value="broadway" style={selectStyle}>Broadway</option>
+                            <option value="Kent" style={selectStyle}>Kent</option>
+                            <option value="Broadway" style={selectStyle}>Broadway</option>
                         </select>
                     </Stack>
 

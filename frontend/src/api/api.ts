@@ -108,23 +108,16 @@ export const historyRead = async (convId: string): Promise<ChatMessage[]> => {
 }
 
 export const historyGenerate = async (options: ConversationRequest, abortSignal: AbortSignal, convId?: string): Promise<Response> => {
-    let body;
+    let body = options as any;
     if(convId){
-        body = JSON.stringify({
-            conversation_id: convId,
-            messages: options.messages
-        })
-    }else{
-        body = JSON.stringify({
-            messages: options.messages
-        })
+        body = {conversation_id: convId, ...body}
     }
     const response = await fetch("/history/generate", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: body,
+        body: JSON.stringify(body),
         signal: abortSignal
     }).then((res) => {
         return res
